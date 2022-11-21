@@ -42,5 +42,5 @@ for Package in $Packages; do
 done
 
 CleanVersion=$(echo "$PreviousVersion" | tr -cd '[:alnum:]._-')
-echo "version=$Version" >>$GITHUB_OUTPUT
-echo "previous_version=$CleanVersion" >>$GITHUB_OUTPUT
+echo "version=$Version" >>"$GITHUB_OUTPUT"
+echo "previous_version=$CleanVersion" >>"$GITHUB_OUTPUT"
