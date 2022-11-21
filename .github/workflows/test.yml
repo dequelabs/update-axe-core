@@ -1,0 +1,13 @@
+name: Test
+
+on: [push]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        id: update
+      - run: git status
+      - run: echo "Updated axe-core to v${{ steps.update.outputs.version }}"

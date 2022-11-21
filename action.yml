@@ -1,0 +1,12 @@
+name: Update axe-core
+description: Update axe-core to its latest stable version
+outputs:
+  version:
+    description: Version axe-core was updated to
+    value: ${{ steps.run.outputs.version }}
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: ./update.sh
+      id: run
