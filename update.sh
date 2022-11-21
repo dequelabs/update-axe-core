@@ -4,22 +4,31 @@ set -e
 
 Version=$(npm info axe-core version)
 Packages=$(find . -name "package.json" -not -path "*/node_modules/*")
+PreviousVersion=""
 for Package in $Packages; do
   Dir=$(dirname "$Package")
 
   echo "Updating package '$Dir'..."
   cd "$Dir" || exit 1
 
-  IsRuntimeDependency=$(jq '.dependencies["axe-core"]' package.json)
-  IsDevelopmentDependency=$(jq '.devDependencies["axe-core"]' package.json)
+  RuntimeVersion=$(jq -r '.dependencies["axe-core"]' package.json)
+  DevelopmentVersion=$(jq -r '.devDependencies["axe-core"]' package.json)
 
-  if [ "$IsRuntimeDependency" != "null" ]; then
+  if [ "$RuntimeVersion" != "null" ]; then
+    if [ -z "$PreviousVersion" ]; then
+      PreviousVersion="$RuntimeVersion"
+    fi
+
     if [ -f yarn.lock ]; then
       yarn add "axe-core@^$Version"
     else
       npm install --save "axe-core@^$Version"
     fi
-  elif [ "$IsDevelopmentDependency" != "null" ]; then
+  elif [ "$DevelopmentVersion" != "null" ]; then
+    if [ -z "$PreviousVersion" ]; then
+      PreviousVersion="$DevelopmentVersion"
+    fi
+
     if [ -f yarn.lock ]; then
       yarn add --dev "axe-core@^$Version"
     else
@@ -32,6 +41,6 @@ for Package in $Packages; do
   cd - || exit 1
 done
 
-echo "version=^$Version" >>$GITHUB_OUTPUT
-
-echo "Done..."
+CleanVersion=$(echo "$PreviousVersion" | tr -cd '[:alnum:]._-')
+echo "version=$Version" >>$GITHUB_OUTPUT
+echo "previous_version=$CleanVersion" >>$GITHUB_OUTPUT

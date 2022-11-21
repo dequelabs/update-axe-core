@@ -10,4 +10,4 @@ jobs:
       - uses: ./
         id: update
       - run: git status
-      - run: echo "Updated axe-core to v${{ steps.update.outputs.version }}"
+      - run: echo "Updated axe-core to v${{ steps.update.outputs.version }} from ${{ steps.update.outputs.previous_version }}"

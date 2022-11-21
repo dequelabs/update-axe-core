@@ -25,12 +25,10 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore: Update axe-core to v${{ steps.update.outputs.Version }}"
+          commit-message: "Update axe-core to v${{ steps.update.outputs.version }}"
           branch: auto-update-axe-core
           base: develop
-          title: "chore: Update axe-core to v${{ steps.update.outputs.Version }}"
+          title: "Update axe-core to v${{ steps.update.outputs.version }}"
           body: |
-            This patch updates version of [`axe-core`](https://npmjs.org/axe-core) to v${{ steps.update.outputs.Version }}.
-
-            This PR was opened by a robot :robot: :tada:.
+            This patch updates version of [`axe-core`](https://npmjs.org/axe-core) to v${{ steps.update.outputs.version }} from ${{ steps.update.outputs.previous_version }}.
 ```
