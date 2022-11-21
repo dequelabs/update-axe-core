@@ -41,6 +41,35 @@ for Package in $Packages; do
   cd - || exit 1
 done
 
-CleanVersion=$(echo "$PreviousVersion" | tr -cd '[:alnum:]._-')
 echo "version=$Version" >>"$GITHUB_OUTPUT"
+
+CleanVersion=$(echo "$PreviousVersion" | tr -cd '[:alnum:]._-')
 echo "previous_version=$CleanVersion" >>"$GITHUB_OUTPUT"
+
+PreviousParts=(${CleanVersion//./ })
+PreviousMajorVersion="${PreviousParts[0]}"
+PreviousMinorVersion="${PreviousParts[1]}"
+PreviousPatchVersion="${PreviousParts[2]}"
+
+Parts=(${Version//./ })
+MajorVersion="${Parts[0]}"
+MinorVersion="${Parts[1]}"
+PatchVersion="${Parts[2]}"
+
+if [ "$PreviousMajorVersion" != "$MajorVersion" ]; then
+  echo "major_version_updated=true" >>"$GITHUB_OUTPUT"
+  echo "minor_version_updated=false" >>"$GITHUB_OUTPUT"
+  echo "patch_version_updated=false" >>"$GITHUB_OUTPUT"
+elif [ "$PreviousMinorVersion" != "$MinorVersion" ]; then
+  echo "major_version_updated=false" >>"$GITHUB_OUTPUT"
+  echo "minor_version_updated=true" >>"$GITHUB_OUTPUT"
+  echo "patch_version_updated=false" >>"$GITHUB_OUTPUT"
+elif [ "$PreviousPatchVersion" != "$PatchVersion" ]; then
+  echo "major_version_updated=false" >>"$GITHUB_OUTPUT"
+  echo "minor_version_updated=false" >>"$GITHUB_OUTPUT"
+  echo "patch_version_updated=true" >>"$GITHUB_OUTPUT"
+else
+  echo "major_version_updated=false" >>"$GITHUB_OUTPUT"
+  echo "minor_version_updated=false" >>"$GITHUB_OUTPUT"
+  echo "patch_version_updated=false" >>"$GITHUB_OUTPUT"
+fi
