@@ -15,15 +15,15 @@ for Package in $Packages; do
 
   if [ "$IsRuntimeDependency" != "null" ]; then
     if [ -f yarn.lock ]; then
-      yarn add "axe-core@$Version"
+      yarn add "axe-core@^$Version"
     else
-      npm install --save "axe-core@$Version"
+      npm install --save "axe-core@^$Version"
     fi
   elif [ "$IsDevelopmentDependency" != "null" ]; then
     if [ -f yarn.lock ]; then
-      yarn add --dev "axe-core@$Version"
+      yarn add --dev "axe-core@^$Version"
     else
-      npm install --save-dev "axe-core@$Version"
+      npm install --save-dev "axe-core@^$Version"
     fi
   else
     echo "No axe-core dependency found."
@@ -32,6 +32,6 @@ for Package in $Packages; do
   cd - || exit 1
 done
 
-echo "version=$Version" >>$GITHUB_OUTPUT
+echo "version=^$Version" >>$GITHUB_OUTPUT
 
 echo "Done..."
