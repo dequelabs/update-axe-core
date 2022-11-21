@@ -1,0 +1,9 @@
+{
+  "name": "yarn-runtime-dep",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "axe-core": "^4.5.2"
+  }
+}

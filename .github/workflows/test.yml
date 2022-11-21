@@ -1,0 +1,26 @@
+name: Test
+
+on: [push]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ibiqlik/action-yamllint@v3
+        with:
+          config_data: |
+            extends: default
+            rules:
+              document-start: disable
+              line-length:
+                level: warning
+      - uses: ludeeus/action-shellcheck@master
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        id: update
+      - run: git status
+      - run: echo "Updated axe-core to v${{ steps.update.outputs.version }} from v${{ steps.update.outputs.previous_version }}"

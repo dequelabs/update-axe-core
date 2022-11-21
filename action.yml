@@ -1,0 +1,24 @@
+name: Update axe-core
+description: Update axe-core to its latest stable version
+outputs:
+  version:
+    description: Version axe-core was updated to
+    value: ${{ steps.main.outputs.version }}
+  previous_version:
+    description: Version of axe-core prior to updating
+    value: ${{ steps.main.outputs.previous_version }}
+  major_version_updated:
+    description: '"true" if the major version was updated ("false" if not)'
+    value: ${{ steps.main.outputs.major_version_updated }}
+  minor_version_updated:
+    description: '"true" if the minor version was updated ("false" if not)'
+    value: ${{ steps.main.outputs.minor_version_updated }}
+  patch_version_updated:
+    description: '"true" if the patch version was updated ("false" if not)'
+    value: ${{ steps.main.outputs.patch_version_updated }}
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: ./update.sh
+      id: main
