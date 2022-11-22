@@ -20,5 +20,5 @@ runs:
   using: composite
   steps:
     - shell: bash
-      run: ./update.sh
+      run: ${{ github.action_path }}/update.sh
       id: main
