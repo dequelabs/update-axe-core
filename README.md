@@ -24,7 +24,8 @@ jobs:
       - name: Open PR
         uses: peter-evans/create-pull-request@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Use a personal access token
+          token: ${{ secrets.PAT }}
           commit-message: "Update axe-core to v${{ steps.update.outputs.version }}"
           branch: auto-update-axe-core
           base: develop
