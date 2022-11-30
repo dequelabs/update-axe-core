@@ -51,10 +51,20 @@ PreviousMajorVersion="${PreviousParts[0]}"
 PreviousMinorVersion="${PreviousParts[1]}"
 PreviousPatchVersion="${PreviousParts[2]}"
 
+echo "Previous version: $CleanVersion"
+echo "Previous major: $PreviousMajorVersion"
+echo "Previous minor: $PreviousMinorVersion"
+echo "Previous patch: $PreviousPatchVersion"
+
 Parts=("${Version//./ }")
 MajorVersion="${Parts[0]}"
 MinorVersion="${Parts[1]}"
 PatchVersion="${Parts[2]}"
+
+echo "Updated version: $Version"
+echo "Updated major: $MajorVersion"
+echo "Updated minor: $MinorVersion"
+echo "Updated patch: $PatchVersion"
 
 if [ "$PreviousMajorVersion" != "$MajorVersion" ]; then
   {
