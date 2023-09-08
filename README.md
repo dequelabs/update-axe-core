@@ -2,6 +2,11 @@
 
 A GitHub action for updating [`axe-core`](https://github.com/dequelabs/axe-core) to the latest stable version.
 
+This action will fail if the repository contains no axe-core dependencies.
+If you do not wish for your job to exit due to this action's failure, use
+[continue-on-error](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepscontinue-on-error) 
+to modify the step running this action.
+
 ## Example
 
 ```yaml
