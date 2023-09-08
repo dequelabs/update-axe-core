@@ -19,7 +19,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: dequelabs/update-axe-core@main
+      - name: Update axe-core
+        uses: dequelabs/update-axe-core@main
         id: update
       - name: Open PR
         uses: peter-evans/create-pull-request@v3
