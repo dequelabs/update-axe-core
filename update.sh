@@ -41,11 +41,6 @@ for Package in $Packages; do
   cd - || exit 1
 done
 
-if [ -z "$PreviousVersion" ]; then
-  echo "This repo does not contain any axe-core dependencies. Exiting."
-  exit 1
-fi
-
 echo "version=$Version" >>"$GITHUB_OUTPUT"
 
 CleanVersion=$(echo "$PreviousVersion" | tr -cd '[:alnum:]._-')
@@ -96,3 +91,9 @@ else
     echo "patch_version_updated=false"
   } >>"$GITHUB_OUTPUT"
 fi
+
+if [ -z "$PreviousVersion" ]; then
+  echo "This repo does not contain any axe-core dependencies. Exiting."
+  exit 1
+fi
+
